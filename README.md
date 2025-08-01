@@ -10,7 +10,6 @@ This is a Flask-based web application that predicts the risk of heart failure ba
 * Shows probability-based risk level with an animated bar chart
 * Clean, responsive UI with background image
 * Retains input values after submission
-* Logs session data in `session.log`
 * Fully deployed and accessible online
 
 ---
@@ -22,6 +21,12 @@ This is a Flask-based web application that predicts the risk of heart failure ba
 * Scikit-learn (RandomForestClassifier)
 * HTML/CSS + Jinja2
 * Render (for deployment)
+
+---
+
+## 🌐 Live Demo
+
+🔗 [View Deployed App on Render](https://heartfailurepredictor-s60w.onrender.com/)
 
 ---
 
@@ -96,4 +101,3 @@ The dataset used is from Kaggle, containing medical records of 299 patients with
 MIT License. Free to use and modify.
 
 ---
-
