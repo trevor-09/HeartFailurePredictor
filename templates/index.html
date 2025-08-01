@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Heart Failure Risk Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('/static/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .card {
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      padding: 30px;
+      width: 100%;
+      max-width: 650px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 12px;
+    }
+
+    .btn-predict {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .btn-predict:hover {
+      background-color: #0056b3;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #555;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>🫀 Heart Failure Risk Predictor</h1>
+    <form action="/predict" method="post">
+
+      <label for="age">Age</label>
+      <input type="number" name="age" class="form-control" value="{{ request.form.age or '' }}" required>
+
+      <label for="sex">Sex</label>
+      <select name="sex" class="form-control">
+        <option value="1" {% if request.form.sex == '1' %}selected{% endif %}>Male</option>
+        <option value="0" {% if request.form.sex == '0' %}selected{% endif %}>Female</option>
+      </select>
+
+      <label for="anaemia">Anaemia</label>
+      <select name="anaemia" class="form-control">
+        <option value="1" {% if request.form.anaemia == '1' %}selected{% endif %}>Yes</option>
+        <option value="0" {% if request.form.anaemia == '0' %}selected{% endif %}>No</option>
+      </select>
+
+      <label for="diabetes">Diabetes</label>
+      <select name="diabetes" class="form-control">
+        <option value="1" {% if request.form.diabetes == '1' %}selected{% endif %}>Yes</option>
+        <option value="0" {% if request.form.diabetes == '0' %}selected{% endif %}>No</option>
+      </select>
+
+      <label for="high_blood_pressure">High Blood Pressure</label>
+      <select name="high_blood_pressure" class="form-control">
+        <option value="1" {% if request.form.high_blood_pressure == '1' %}selected{% endif %}>Yes</option>
+        <option value="0" {% if request.form.high_blood_pressure == '0' %}selected{% endif %}>No</option>
+      </select>
+
+      <label for="smoking">Smoking</label>
+      <select name="smoking" class="form-control">
+        <option value="1" {% if request.form.smoking == '1' %}selected{% endif %}>Yes</option>
+        <option value="0" {% if request.form.smoking == '0' %}selected{% endif %}>No</option>
+      </select>
+
+      <label for="creatinine_phosphokinase">Creatinine Phosphokinase (CPK)</label>
+      <input type="number" name="creatinine_phosphokinase" class="form-control" value="{{ request.form.creatinine_phosphokinase or '' }}" required>
+
+      <label for="ejection_fraction">Ejection Fraction (%)</label>
+      <input type="number" name="ejection_fraction" class="form-control" value="{{ request.form.ejection_fraction or '' }}" required>
+
+      <label for="platelets">Platelets</label>
+      <input type="number" name="platelets" class="form-control" value="{{ request.form.platelets or '' }}" required>
+
+      <label for="serum_creatinine">Serum Creatinine</label>
+      <input type="number" name="serum_creatinine" class="form-control" step="any" value="{{ request.form.serum_creatinine or '' }}" required>
+
+      <label for="serum_sodium">Serum Sodium</label>
+      <input type="number" name="serum_sodium" class="form-control" value="{{ request.form.serum_sodium or '' }}" required>
+
+      <label for="time">Follow-up Time (days)</label>
+      <input type="number" name="time" class="form-control" value="{{ request.form.time or '' }}" required>
+
+      <button type="submit" class="btn btn-predict">🔍 Predict Risk</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="alert alert-info text-center mt-4 fade-in">
+        <strong>{{ prediction_text }}</strong>
+      </div>
+    {% endif %}
+
+    <footer>Made with 🫀 by Abhay</footer>
+  </div>
+
+</body>
+</html>
